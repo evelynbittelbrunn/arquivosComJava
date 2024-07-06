@@ -1,7 +1,7 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 import java.io.IOException;
 
 public class Program {
@@ -67,6 +67,7 @@ public class Program {
 		}
 **/
 		
+/** FILE READER E BUFFERED READER - FORMA INDICADA
 		String path = "c:\\temp\\in.txt";
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(path))) {			
@@ -78,6 +79,26 @@ public class Program {
 		} catch(IOException e) {
 			System.out.println("Error: " + e.getMessage());
 		} 
+		
+**/
+		
+		String[] lines = new String[] {"OI", "Teste"};
+		
+		String path = "c:\\temp\\out.txt";
+		
+//		Cria um arquivo novo com as linhas
+//		Caso já exista um arquivo de mesmo nome, ele destrói e cria novamente
+		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path))) {
+//		Edita um arquivo já criado, adicionando as linhas nele	
+//		try (BufferedWriter bw = new BufferedWriter(new FileWriter(path, true))) {
+			for (String line : lines) {
+				bw.write(line);
+				bw.newLine();
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		}
+		
 		
 	}
 
