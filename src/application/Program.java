@@ -1,7 +1,16 @@
 package application;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+
+import entities.Product;
 
 public class Program {
 
@@ -137,6 +146,7 @@ public class Program {
 		
 **/
 		
+/** Propriedades e métodos do objeto
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Enter a file path: ");
@@ -149,7 +159,45 @@ public class Program {
 		System.out.println("getPath: " + path.getPath());
 		
 		sc.close();
+**/
 		
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Informe o diretório do arquivo: ");
+		File path = new File(sc.nextLine());
+		
+		List<Product> productList = new ArrayList<Product>();
+		
+//		c:\\temp\\produtos.CSV;
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {			
+			String line = br.readLine();
+			while(line != null) {
+				String[] lineArray = line.split(",");
+				
+				double price = Double.parseDouble(lineArray[1]);
+				int quantity = Integer.parseInt(lineArray[2]);
+				
+				productList.add(new Product(lineArray[0], price, quantity));
+				
+				line = br.readLine();
+			}
+			
+			boolean success = new File(path.getParent() + "\\out").mkdir();
+			System.out.println("Diretório criado com sucesso: " + success);
+			
+			try (BufferedWriter bw = new BufferedWriter(new FileWriter(path.getParent() + "\\out\\summary.CSV"))) {
+				for (Product product : productList) {
+					bw.write(product.getProduct() + "," + product.totalPrice());
+					bw.newLine();
+				}
+			} catch(IOException e) {
+				e.printStackTrace();
+			}
+		} catch(IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} finally {
+			sc.close();
+		}
 	}
 
 }
