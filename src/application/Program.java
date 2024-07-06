@@ -1,8 +1,7 @@
 package application;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.File;
+import java.util.Scanner;
 
 public class Program {
 
@@ -82,6 +81,7 @@ public class Program {
 		
 **/
 		
+/** CRIAÇÃO E ALTERAÇÃO DE ARQUIVO
 		String[] lines = new String[] {"OI", "Teste"};
 		
 		String path = "c:\\temp\\out.txt";
@@ -99,6 +99,39 @@ public class Program {
 			e.printStackTrace();
 		}
 		
+**/
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter a folder path: ");
+		String strPath = sc.nextLine();
+		
+		File path = new File(strPath);
+		
+//		Listar somente diretórios (pastas)
+		File[] folders = path.listFiles(File::isDirectory);
+		
+		System.out.println("FOLDERS: ");
+		
+		for(File folder : folders) {
+			System.out.println(folder);
+		}
+		
+//		Listar somente arquivos
+		File[] files = path.listFiles(File::isFile);
+		
+		System.out.println();
+		System.out.println("FILES: ");
+		
+		for (File file : files) {
+			System.out.println(file);
+		}
+		
+//		Cria uma nova pasta a partir do diretório
+		boolean success = new File(strPath + "\\testeNovaPasta").mkdir();
+		System.out.println("Diretório criado com sucesso: " + success);
+		
+		sc.close();
 		
 	}
 
