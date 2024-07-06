@@ -101,6 +101,8 @@ public class Program {
 		
 **/
 		
+/** Listagem de pastas, listagem de arquivos e criação de pasta
+		
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.println("Enter a folder path: ");
@@ -130,6 +132,21 @@ public class Program {
 //		Cria uma nova pasta a partir do diretório
 		boolean success = new File(strPath + "\\testeNovaPasta").mkdir();
 		System.out.println("Diretório criado com sucesso: " + success);
+		
+		sc.close();
+		
+**/
+		
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Enter a file path: ");
+		String strPath = sc.nextLine();
+		
+		File path = new File(strPath);
+		
+		System.out.println("getName: " + path.getName());
+		System.out.println("getParent: " + path.getParent());
+		System.out.println("getPath: " + path.getPath());
 		
 		sc.close();
 		
