@@ -34,6 +34,7 @@ public class Program {
 		}
 **/
 		
+/** FILE READER E BUFFERED READER - FORMA NÃO INDICADA
 		String path = "c:\\temp\\in.txt";
 		FileReader fr = null;
 		BufferedReader br = null;
@@ -64,6 +65,19 @@ public class Program {
 				e.printStackTrace();
 			}
 		}
+**/
+		
+		String path = "c:\\temp\\in.txt";
+		
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {			
+			String line = br.readLine();
+			while(line != null) {
+				System.out.println(line);
+				line = br.readLine();
+			}
+		} catch(IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} 
 		
 	}
 
